@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EBallot - Online Election Management System</title>
+    <link rel="stylesheet" href="style.css">
+       
+<script src="script.js"></script>           
+
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <h1>EBallot</h1>
+                </div>
+                <nav class="nav" id="mainNav" style="display: none;">
+                    <button class="btn btn--primary" onclick="showSection('dashboard')">Dashboard</button>
+                    <button class="btn btn--primary" onclick="showSection('voting')">Vote Now</button>
+                    <button class="btn btn--primary" onclick="showSection('results')">Results</button>
+                    <button class="btn btn--secondary" onclick="logout()">Logout</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- News Ticker -->
+    <div class="news-ticker">
+        <div class="news-ticker-label">TODAY'S NEWS</div>
+        <div class="news-ticker-content">
+            <div class="news-ticker-items">
+                <span class="news-item">
+                    <span class="news-icon">🔴</span>
+                    <span class="news-category">BREAKING:</span>
+                    Presidential Election 2025 voting now open - Cast your vote today!
+                </span>
+                <span class="news-item">
+                    <span class="news-icon">📢</span>
+                    <span class="news-category">UPDATE:</span>
+                    Over 50,000 voters have already registered on EBallot platform
+                </span>
+                <span class="news-item">
+                    <span class="news-icon">⚠️</span>
+                    <span class="news-category">ALERT:</span>
+                    State Governor Election closes on Dec 20, 2025 - Don't miss your chance!
+                </span>
+                <span class="news-item">
+                    <span class="news-icon">✅</span>
+                    <span class="news-category">REMINDER:</span>
+                    Ensure your voter ID and details are correct before voting
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="container">
+                <div class="hero">
+                    <h2>Welcome to EBallot</h2>
+                    <p class="hero-subtitle">Secure, Transparent, and Accessible Online Voting Platform</p>
+                    <div class="hero-actions">
+                        <button class="btn btn--primary btn--lg" onclick="showSection('register')">Register to Vote</button>
+                        <button class="btn btn--outline btn--lg" onclick="showSection('login')">Login</button>
+                    </div>
+                </div>
+
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Secure Voting</h3>
+                        <p>End-to-end encryption ensures your vote remains confidential</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✅</div>
+                        <h3>Verified Results</h3>
+                        <p>Real-time transparent results you can trust</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Easy Access</h3>
+                        <p>Vote from anywhere, anytime with just a few clicks</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Register Section -->
+        <section id="register" class="section">
+            <div class="container">
+                <div class="form-container">
+                    <h2>Voter Registration</h2>
+                    <div id="registerAlert"></div>
+                    <form id="registerForm" onsubmit="handleRegister(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="regFirstName">First Name *</label>
+                                <input type="text" class="form-control" id="regFirstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="regMiddleName">Middle Name</label>
+                                <input type="text" class="form-control" id="regMiddleName">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="regLastName">Last Name *</label>
+                                <input type="text" class="form-control" id="regLastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="regVoterId">Voter ID *</label>
+                                <input type="text" class="form-control" id="regVoterId" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="regEmail">Email *</label>
+                                <input type="email" class="form-control" id="regEmail" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="regMobile">Mobile Number (10 digits) *</label>
+                                <input type="tel" class="form-control" id="regMobile" pattern="[0-9]{10}" maxlength="10" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="regAadhar">Aadhar Number (12 digits) *</label>
+                                <input type="text" class="form-control" id="regAadhar" pattern="[0-9]{12}" maxlength="12" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="regDob">Date of Birth *</label>
+                                <input type="date" class="form-control" id="regDob" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="regPassword">Password *</label>
+                                <input type="password" class="form-control" id="regPassword" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="regAddress">Residential Address *</label>
+                            <textarea class="form-control" id="regAddress" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="declaration-box">
+                                <input type="checkbox" id="regDeclaration" required>
+                                <label for="regDeclaration">
+                                    I hereby declare that the information provided above is true and accurate to the best of my knowledge. I understand that providing false information may result in legal consequences.
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn--primary btn--full-width">Register</button>
+                        <p class="form-footer">Already registered? <a href="#" onclick="showSection('login'); return false;">Login here</a></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login" class="section">
+            <div class="container">
+                <div class="form-container">
+                    <h2>Voter Login</h2>
+                    <div id="loginAlert"></div>
+                    <form id="loginForm" onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="loginVoterId">Voter ID</label>
+                            <input type="text" class="form-control" id="loginVoterId" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="loginPassword">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width">Login</button>
+                        <p class="form-footer">New voter? <a href="#" onclick="showSection('register'); return false;">Register here</a></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="section">
+            <div class="container">
+                <h2>Voter Dashboard</h2>
+                <div class="welcome-message">
+                    <h3>Welcome, <span id="voterName">Voter</span>!</h3>
+                    <p>Voter ID: <span id="voterIdDisplay"></span></p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="activeElections">3</div>
+                        <div class="stat-label">Active Elections</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="upcomingElections">2</div>
+                        <div class="stat-label">Upcoming Elections</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="completedElections">1</div>
+                        <div class="stat-label">Completed Elections</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="votesCast">0</div>
+                        <div class="stat-label">Votes Cast</div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <button class="btn btn--primary" onclick="showSection('voting')">Cast Your Vote</button>
+                    <button class="btn btn--outline" onclick="showSection('results')">View Results</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Voting Section -->
+        <section id="voting" class="section">
+            <div class="container">
+                <h2>Cast Your Vote</h2>
+                <div id="votingAlert"></div>
+                
+                <div class="election-selector">
+                    <label class="form-label" for="electionSelect">Select Election:</label>
+                    <select class="form-control" id="electionSelect" onchange="loadCandidates()">
+                        <option value="">Choose an election...</option>
+                    </select>
+                </div>
+
+                <div id="candidatesList" class="candidates-grid"></div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results" class="section">
+            <div class="container">
+                <h2>Election Results</h2>
+                
+                <div class="election-selector">
+                    <label class="form-label" for="resultsElectionSelect">Select Election:</label>
+                    <select class="form-control" id="resultsElectionSelect" onchange="loadResults()">
+                        <option value="">Choose an election...</option>
+                    </select>
+                </div>
+
+                <div id="resultsContainer"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 EBallot. All rights reserved. | Secure Online Voting Platform</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
